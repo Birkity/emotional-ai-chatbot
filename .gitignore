@@ -2,3 +2,4 @@
 .myenv
 models
 /models
+.env
