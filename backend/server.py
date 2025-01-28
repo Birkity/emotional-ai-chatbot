@@ -31,6 +31,8 @@ prompt_template = PromptTemplate(
     {history}
 
     Respond to the following input accordingly:
+    - If anger is high, be assertive but not aggressive.
+    - If sadness is high, provide empathetic and supportive responses.
     Input: {input}
     Response:
     """,
@@ -45,18 +47,21 @@ class EmotionalConversationChain(LLMChain):
         super().__init__(llm=llm, memory=memory, prompt=prompt)
 
     def run(self, input_text, anger_level, sadness_level):
-        # Format the input with all required variables
         formatted_input = {
             "input": input_text,
             "anger_level": anger_level,
             "sadness_level": sadness_level,
             "history": self.memory.buffer,  # Include conversation history
         }
+        
+        # Debug print (comment out in production)
+        print(f"Current history: {self.memory.buffer}")
 
-        # Run the chain
         response = self.predict(**formatted_input)
-        # Save context to memory for the next interaction
         self.memory.save_context({"input": input_text}, {"output": response})
+        
+        # Debug print (comment out in production)
+        print(f"Updated history: {self.memory.buffer}")
         return response
 
 # Initialize the custom chain
@@ -103,7 +108,7 @@ def chat():
     anger_level = calculate_anger(valence, arousal, selection_threshold, resolution_level)
     sadness_level = calculate_sadness(valence, arousal, goal_directedness)
 
-    # Get chatbot response
+    # Get chatbot response using the global conversation object
     response = conversation.run(input_text, anger_level, sadness_level)
 
     # Return response and emotional states

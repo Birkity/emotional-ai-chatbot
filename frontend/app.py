@@ -14,7 +14,11 @@ arousal = st.sidebar.slider("Arousal Level", 1, 7, 4)
 selection_threshold = st.sidebar.slider("Selection Threshold", 1, 7, 4)
 resolution_level = st.sidebar.slider("Resolution Level", 1, 7, 4)
 goal_directedness = st.sidebar.slider("Goal-Directedness", 1, 7, 4)
-securing_rate = st.sidebar.slider("Securing Rate", 1, 7, 4)  # Note: securing_rate isn't used in calculation but is included for completeness
+
+st.sidebar.write("""
+**Note:** Adjust these parameters to see how the chatbot's emotional state and responses change. 
+High anger might make responses more assertive, while high sadness could lead to more empathetic replies.
+""")
 
 # Chat Interface
 st.header("Chat with the Emotional AI Bot")
