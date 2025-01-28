@@ -99,13 +99,11 @@ Here's a breakdown of the key directories and files in the project:
 
 ### UI Screenshot
 
-```markdown
 ![Emotional AI Bot UI 1](./emo-ai-bot1.png)
 ![Emotional AI Bot UI 2](./emo-ai-bot2.png)
 ```
 ---
 
----
 
 ## 📚 Documentation
 
@@ -139,6 +137,5 @@ Special thanks to:
 
 ---
 
-Join us on this exciting journey at the intersection of **AI** and **human emotions**. Your feedback is invaluable in evolving this project! 🚀
 ``` 
 
