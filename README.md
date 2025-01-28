@@ -1,4 +1,4 @@
-```markdown
+
 # Emotional AI Chatbot 🚀
 
 Welcome to the **Emotional AI Chatbot** project! This innovative chatbot blends **Dorner's Psi Theory** with conversational AI to simulate emotional intelligence. Dive in to explore how AI adapts to human-like emotions! 🌟
