@@ -1,4 +1,3 @@
-# server.py
 from flask import Flask, request, jsonify
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
@@ -67,14 +66,27 @@ conversation = EmotionalConversationChain(
     prompt=prompt_template,
 )
 
-# Function to calculate emotional states
+# Helper function to normalize 1-7 scale to 0-1
+def normalize_to_0_1(value, min_val=1, max_val=7):
+    return (value - min_val) / (max_val - min_val)
+
+# Function to calculate emotional states on a 1-5 scale
 def calculate_anger(valence, arousal, selection_threshold, resolution_level):
-    anger = (1 - valence) * arousal * (1 - resolution_level) * selection_threshold
-    return min(max(anger, 0), 1)
+    valence = normalize_to_0_1(valence)
+    arousal = normalize_to_0_1(arousal)
+    selection_threshold = normalize_to_0_1(selection_threshold)
+    resolution_level = normalize_to_0_1(resolution_level)
+    
+    anger = (1 - valence) * arousal * (1 - resolution_level) * selection_threshold * 5
+    return round(min(max(anger, 0), 5), 2)
 
 def calculate_sadness(valence, arousal, goal_directedness):
-    sadness = (1 - valence) * (1 - arousal) * (1 - goal_directedness)
-    return min(max(sadness, 0), 1)
+    valence = normalize_to_0_1(valence)
+    arousal = normalize_to_0_1(arousal)
+    goal_directedness = normalize_to_0_1(goal_directedness)
+    
+    sadness = (1 - valence) * (1 - arousal) * (1 - goal_directedness) * 5
+    return round(min(max(sadness, 0), 5), 2)
 
 # Flask route to handle chat requests
 @app.route("/chat", methods=["POST"])
@@ -86,7 +98,6 @@ def chat():
     selection_threshold = data["selection_threshold"]
     resolution_level = data["resolution_level"]
     goal_directedness = data["goal_directedness"]
-    securing_rate = data["securing_rate"]
 
     # Calculate emotional states
     anger_level = calculate_anger(valence, arousal, selection_threshold, resolution_level)
