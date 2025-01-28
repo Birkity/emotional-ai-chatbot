@@ -101,7 +101,7 @@ Here's a breakdown of the key directories and files in the project:
 
 ![Emotional AI Bot UI 1](./emo-ai-bot1.png)
 ![Emotional AI Bot UI 2](./emo-ai-bot2.png)
-```
+
 ---
 
 
