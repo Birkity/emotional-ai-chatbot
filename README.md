@@ -137,5 +137,3 @@ Special thanks to:
 
 ---
 
-``` 
-
