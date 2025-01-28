@@ -99,8 +99,8 @@ Here's a breakdown of the key directories and files in the project:
 
 ### UI Screenshot
 
-![Emotional AI Bot UI 1](./emo-ai-bot1.png)
-![Emotional AI Bot UI 2](./emo-ai-bot2.png)
+![Emotional AI Bot UI 1](./emo-ai-bot1-1.png)
+![Emotional AI Bot UI 2](./emo-ai-bot2-1.png)
 
 ---
 
