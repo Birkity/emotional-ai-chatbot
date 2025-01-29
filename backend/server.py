@@ -19,7 +19,7 @@ llm = ChatOpenAI(
     model_name="gpt-3.5-turbo",
 )
 
-# Define the prompt template with securing_rate
+# Define the prompt template
 prompt_template = PromptTemplate(
     input_variables=["input", "anger_level", "sadness_level", "history"],
     template="""
@@ -54,13 +54,13 @@ class EmotionalConversationChain(LLMChain):
             "history": self.memory.buffer,  # Include conversation history
         }
         
-        # Debug print (comment out in production)
+
         print(f"Current history: {self.memory.buffer}")
 
         response = self.predict(**formatted_input)
         self.memory.save_context({"input": input_text}, {"output": response})
         
-        # Debug print (comment out in production)
+
         print(f"Updated history: {self.memory.buffer}")
         return response, self.memory.buffer
 
