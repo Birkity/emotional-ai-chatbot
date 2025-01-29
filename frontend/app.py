@@ -1,5 +1,7 @@
 import streamlit as st
 import requests
+import plotly.express as px
+import pandas as pd
 
 # Backend API URL
 BACKEND_URL = "http://127.0.0.1:5000"
@@ -51,8 +53,34 @@ if st.button("Send"):
 
         # Display chatbot response and emotional states
         st.text_area("Bot:", value=response["response"], height=100)
-        st.write(f"Anger Level: {response['anger_level']:.2f}")
-        st.write(f"Sadness Level: {response['sadness_level']:.2f}")
+
+        # Visualizations for Anger and Sadness
+        st.subheader("Emotional State Visualizations")
+
+        # Progress Bars
+        st.write("**Anger Level Progress Bar**")
+        st.progress(response["anger_level"] / 5)  # Normalize to 0-1 for progress bar
+
+        st.write("**Sadness Level Progress Bar**")
+        st.progress(response["sadness_level"] / 5)  # Normalize to 0-1 for progress bar
+
+        # Metric Cards
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric(label="Anger Level", value=f"{response['anger_level']:.2f}")
+        with col2:
+            st.metric(label="Sadness Level", value=f"{response['sadness_level']:.2f}")
+
+        # Plotly Bar Chart
+        st.write("**Emotional State Bar Chart**")
+        emotions_df = pd.DataFrame({
+            "Emotion": ["Anger", "Sadness"],
+            "Level": [response["anger_level"], response["sadness_level"]]
+        })
+        fig = px.bar(emotions_df, x="Emotion", y="Level", color="Emotion", 
+                     color_discrete_map={"Anger": "#FF4B4B", "Sadness": "#4A90E2"},
+                     labels={"Level": "Emotion Level (1-5)"})
+        st.plotly_chart(fig, use_container_width=True)
 
 # Display chat history
 st.subheader("Conversation History")
